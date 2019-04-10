@@ -10,7 +10,7 @@
 export default {
   methods: {
     next() {
-      this.$router.push('/nameSetting')
+      this.$router.push('/gameSetting')
     }
   }
 }
