@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="next()">
-      next
+      ゲームを始める
     </button>
   </div>
 </template>
