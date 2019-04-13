@@ -51,6 +51,7 @@ export default {
     },
     countDown() {
       if (this.remainSec < 0) {
+        clearInterval(this.timerInterval)
         this.$router.push('/result')
         return
       }
