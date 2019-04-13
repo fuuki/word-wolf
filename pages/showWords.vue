@@ -10,17 +10,17 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data: () => {
     return {
       playerIndex: 0,
-      phase: 0,
-      players: [
-        { name: 'foo1', word: 'bar1' },
-        { name: 'foo2', word: 'bar2' },
-        { name: 'foo3', word: 'bar3' }
-      ]
+      phase: 0
     }
+  },
+  computed: {
+    ...mapGetters('game', ['players'])
   },
   methods: {
     showText: (player, phase) => {

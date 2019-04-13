@@ -13,7 +13,7 @@
     <div>
       時間
       <input
-        v-model="wolfNum"
+        v-model="gameMin"
         type="number"
         min="1"
         :max="10"
@@ -27,15 +27,25 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   data: () => {
     return {
-      playerNum: 3,
-      wolfNum: 1
+      wolfNum: 1,
+      gameMin: 3
     }
   },
+  computed: {
+    ...mapGetters('game', ['playerNum'])
+  },
   methods: {
+    ...mapActions('game', ['decideRole', 'decideWord']),
+    ...mapActions('time', ['setSec']),
     next() {
+      this.decideRole(this.wolfNum)
+      this.decideWord()
+      this.setSec(this.gameMin * 60)
       this.$router.push('/showWords')
     }
   }

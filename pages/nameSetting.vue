@@ -6,7 +6,7 @@
     >
       <input
         v-model="player.name"
-        :placeholder="`プレイヤー${index}`"
+        :placeholder="`プレイヤー${index + 1}`"
       >
       <button
         v-if="players.length > 3"
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 class PlayerForm {
   constructor() {
     this.name = ''
@@ -33,13 +35,13 @@ class PlayerForm {
 
 export default {
   data: () => {
-    const players = [1, 2, 3]
-    players.map(_ => new PlayerForm())
+    const players = [1, 2, 3].map(_ => new PlayerForm())
     return {
       players
     }
   },
   methods: {
+    ...mapActions('game', ['init']),
     addPlayer() {
       this.players.push(new PlayerForm())
     },
@@ -49,6 +51,8 @@ export default {
       }
     },
     next() {
+      const names = this.players.map(v => v.name)
+      this.init(names)
       this.$router.push('/gameSetting')
     }
   }

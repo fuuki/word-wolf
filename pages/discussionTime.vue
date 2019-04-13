@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   filters: {
     time: val => {
@@ -27,6 +29,12 @@ export default {
       remainSec: 180,
       timerInterval: null
     }
+  },
+  computed: {
+    ...mapGetters('time', ['sec'])
+  },
+  created() {
+    this.remainSec = this.sec
   },
   mounted() {
     this.timerInterval = setInterval(() => {

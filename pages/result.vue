@@ -6,15 +6,21 @@
       </button>
     </div>
     <div v-else>
-      結果
-      <ul>
-        <li
+      <table>
+        <tr>
+          <th>名前</th>
+          <th>役職</th>
+          <th>ワード</th>
+        </tr>
+        <tr
           v-for="(player, index) in players"
           :key="index"
         >
-          {{ player.name }}:{{ player.role }}
-        </li>
-      </ul>
+          <td>{{ player.name }}</td>
+          <td>{{ player.role | role }}</td>
+          <td>{{ player.word }}</td>
+        </tr>
+      </table>
       <button @click="next()">
         トップに戻る
       </button>
@@ -23,16 +29,24 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
+const roleMap = {
+  wolf: 'ウルフ',
+  citizen: '市民'
+}
+
 export default {
+  filters: {
+    role: val => roleMap[val]
+  },
   data: () => {
     return {
-      resultHidden: true,
-      players: [
-        { name: 'foo1', role: 'bar1' },
-        { name: 'foo2', role: 'bar2' },
-        { name: 'foo3', role: 'bar3' }
-      ]
+      resultHidden: true
     }
+  },
+  computed: {
+    ...mapGetters('game', ['players'])
   },
   methods: {
     show() {
@@ -44,3 +58,10 @@ export default {
   }
 }
 </script>
+
+<style>
+th,
+td {
+  border: solid;
+}
+</style>
