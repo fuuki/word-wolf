@@ -1,3 +1,5 @@
+import wordsJSON from '~/data/words.json'
+
 const shuffleArray = _arr => {
   const arr = _arr.slice()
   for (let i = arr.length - 1; i >= 0; i--) {
@@ -43,7 +45,11 @@ export const actions = {
     commit('setRoles', roles)
   },
   decideWord({ commit }) {
-    const wordMap = { wolf: 'りんご', citizen: 'ごりら' }
+    // 0~iのランダムな数値を取得
+    const rand = Math.floor(Math.random() * (wordsJSON.list.length + 1))
+    const list = shuffleArray(wordsJSON.list[rand])
+    const [wolf, citizen] = list
+    const wordMap = { wolf, citizen }
     commit('setWordMap', wordMap)
   }
 }
